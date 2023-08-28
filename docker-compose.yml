@@ -1,0 +1,10 @@
+services:
+  tg-bot:
+    build:
+      context: .
+    volumes:
+      - ./src:/src
+    command: >
+      sh -c "python bot.py"
+    env_file:
+      - src/.env
