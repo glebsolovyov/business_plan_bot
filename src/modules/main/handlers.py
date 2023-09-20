@@ -1,4 +1,5 @@
 from aiogram import types, Dispatcher
+from aiogram.dispatcher import FSMContext
 
 from bot import bot
 from core.keyboards import to_start_keyboard
@@ -55,14 +56,6 @@ async def intellectual_property(callback_query: types.CallbackQuery) -> None:
     await callback_query.answer()
 
 
-async def buy_product(callback_query: types.CallbackQuery) -> None:
-    await bot.send_message(chat_id=callback_query.message.chat.id,
-                           text=main_messages.MESSAGE_FOR_BUY_PRODUCT,
-                           reply_markup=to_start_keyboard)
-
-    await callback_query.answer()
-
-
 def register_main_handlers(dispatcher: Dispatcher) -> None:
     callback_query_handlers = [
         {'callback': about_project, 'text': 'about_project'},
@@ -71,8 +64,8 @@ def register_main_handlers(dispatcher: Dispatcher) -> None:
         {'callback': advantages, 'text': 'advantages'},
         {'callback': commercialization, 'text': 'commercialization'},
         {'callback': intellectual_property, 'text': 'intellectual_property'},
-        {'callback': buy_product, 'text': 'buy_product'},
     ]
 
     for handler in callback_query_handlers:
             dispatcher.register_callback_query_handler(**handler)
+
